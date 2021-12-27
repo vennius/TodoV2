@@ -16,6 +16,10 @@ plusBtn.addEventListener('click', () => {
   
 });
 
+function checking() {
+  
+}
+
 function makeTodo(text){
   
   const newTodo = document.createElement('div');
@@ -49,7 +53,7 @@ function recheck(){
     btn.addEventListener('click', (e) => {
       const theText = e.target.parentElement.parentElement.querySelector('.text');
       theText.classList.toggle('underline');
-      e.target.classList.toggle('change');
+      e.target.classList.toggle('change-color');
     });
   });
 
@@ -59,9 +63,35 @@ function recheck(){
     });
   });
   
+  if(text.length >= 0){
+    
+    let todos = [];
+    
+    for(let i = 0; i < text.length; i++){
+      todos.push(text[i].textContent);
+    }
+    
+    console.log(todos);
+    
+    let json = `{${(function(){
+      let jsonText = '';
+      for(let i = 0; i < todos.length; i++){
+        jsonText += `"todo${i}": "${todos[i]}",`;
+      }
+      return jsonText;
+      
+    })()}}`;
+    
+    
+    json = json.replace('",}', '"}');
+    localStorage.setItem('todo_storage', json);
+    //return JSON.parse(json);
+    
+  }
+  
 }
 
-function getRandHex(){
+/*function getRandHex(){
   const alphabets = 'ABCDEF';
   let hexCode = '#';
   
@@ -84,4 +114,4 @@ function getRandHex(){
     
   }
   return hexCode;
-}
+}*/
